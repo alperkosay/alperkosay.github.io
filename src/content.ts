@@ -15,10 +15,33 @@ export const me = {
 export const about: string[] = [
   'Selam, ben Alper. *Fullstack web geliştiriciyim.* İşin çoğu React ve TypeScript ile önde, Node ve Postgres ile arkada geçiyor.',
   'İhtiyacım olan aracı bulamazsam oturur kendim yaparım. Bir dosya yöneticisi, ekranın tepesinde duran bir durum barı, tarayıcıda dönen bir FPS böyle çıktı.',
-  'Artık kodu tek başıma yazmıyorum. İşi parçalara bölüp *Claude ajanlarına dağıtıyorum*, ben de şeflik yapıyorum.',
+  'Artık kodu tek başıma yazmıyorum. İşi parçalara bölüp *Claude ajanlarına dağıtıyorum,* ben de şeflik yapıyorum.',
 ];
 
-export const aboutNote = 'kadro bir alt sayfada';
+/** Maskotun ekranında, her paragraftan önce sorulan soru. */
+export const aboutAsk: string[] = ['kimsin?', 'boş vaktinde?', 'peki şimdi?'];
+
+/** Gitarın sapından fırlayan promptlar. */
+export const prompts: string[] = [
+  '> bug’ı bul',
+  '> testleri yaz',
+  '> bunu refactor et',
+  '> 5 ajana böl',
+  '> PR aç',
+  '> deploy et',
+  '> neden kırıldı?',
+  '> bir daha dene',
+  '> ultra düşün',
+  '> planı çıkar',
+  '> log’lara bak',
+  '> commit at',
+];
+
+/** Hakkımda'nın ikinci panelinde maskotun etrafında uçuşan, yaptığım şeyler. */
+export const made: string[] = ['dosya yöneticisi', 'durum barı', 'tarayıcıda FPS'];
+
+/** Ekrana vurunca çıkan çıkartmalar. */
+export const hits: string[] = ['PAT', 'ÇAT', 'GÜM', 'ZZT', 'DAN'];
 
 /** Kadro sayfasının ön grupları. Sıra önemli: sahneye bu sırayla çıkarlar. */
 export const stack: string[] = [
@@ -155,8 +178,8 @@ export const links: LinkItem[] = [
 
 export const sections = [
   { id: 'kapak', label: 'kapak' },
-  { id: 'hakkimda', label: 'hakkımda' },
+  { id: 'hakkimda', label: 'ben' },
   { id: 'kadro', label: 'kadro' },
-  { id: 'projeler', label: 'projeler' },
-  { id: 'linkler', label: 'linkler' },
+  { id: 'projeler', label: 'işler' },
+  { id: 'linkler', label: 'çıkış' },
 ] as const;

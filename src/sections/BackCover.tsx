@@ -1,68 +1,73 @@
-import { Tape, Tear } from '../components/Bits';
+import type { CSSProperties } from 'react';
+import { Band, Tape } from '../components/Bits';
+import { Shot } from '../components/Film';
 import { Mascot } from '../components/Mascot';
 import { Ransom } from '../components/Ransom';
 import { Step } from '../engine/Step';
 import { torn } from '../engine/rand';
+import { PACE } from '../timeline';
 import { links, me } from '../content';
 
-const SLOTS = 7;
-/** Bu sıradaki fiş çoktan koparılmış. */
-const GONE = 3;
+type Vars = CSSProperties & Record<`--${string}`, string | number>;
 
-/** Arka kapak: altından fiş koparılan ilan. Her fiş bir link. */
+const BAND = me.manifesto.map((w) => w.replace('.', ''));
+const TILT = ['-2.5deg', '2deg', '-1.5deg', '3deg'];
+
+/**
+ * Çekim 5, çıkış. Projeler duvarı sayfa gibi çevrilir, altından bu çıkar:
+ * her link kocaman bir konser bileti. Bilete bas, kapıdan gir.
+ */
 export function BackCover() {
-  const seen = new Set<string>();
-  let n = 0;
-  const stubs = Array.from({ length: SLOTS }, (_, i) => {
-    if (i === GONE) return null;
-    const link = links[n++ % links.length];
-    // İlanlarda aynı numara her fişte tekrar eder. Klavye ve ekran okuyucu
-    // her linki bir kez görsün diye tekrarlar gizlenir.
-    const first = !seen.has(link.href);
-    seen.add(link.href);
-    return { link, first };
-  });
-
   return (
-    <footer id="linkler" className="page back" data-scene="through">
-      <Tear seed={41} />
-      <div className="back__grid">
+    <Shot id="linkler" len={2.3} pace={PACE.cikis}>
+      <div className="back__pin">
+        <Band words={BAND} />
+
         <div className="back__left">
-          <Ransom as="h2" text="LİNKLER" seed={23} className="back__h" drop />
-          <Step className="notice" self="enter" on={3}>
-            <Tape className="tape--top" />
-            <div className="notice__paper" style={{ clipPath: torn(43, { top: 7, n: 40 }) }}>
-              <p className="notice__h">Devamı burada</p>
-              <p className="notice__text">Kodun tamamı ve yeni işler bu adreslerde. Alttan bir fiş kopar.</p>
-              <ul className="notice__stubs">
-                {stubs.map((s, i) =>
-                  s ? (
-                    <li key={i}>
-                      <a className="stub" href={s.link.href} aria-hidden={s.first ? undefined : true} tabIndex={s.first ? undefined : -1}>
-                        <b>{s.link.label}</b>
-                        <span>{s.link.handle}</span>
-                      </a>
-                    </li>
-                  ) : (
-                    <li key={i} className="stub--gone" aria-hidden="true" />
-                  ),
-                )}
-              </ul>
-            </div>
-          </Step>
+          <Ransom as="h2" text="LİNKLER" seed={23} drop className="back__h" />
+          <ul className="tickets">
+            {links.map((link, i) => (
+              <Step
+                as="li"
+                key={link.href}
+                className="paste"
+                on={i % 2 ? 2 : 3}
+                style={{ '--from': 0.36 + i * 0.1, '--span': 0.07, '--r': TILT[i % TILT.length] } as Vars}
+              >
+                <a
+                  className={`ticket ticket--${i % 2} live${i % 2 ? 4 : 6}`}
+                  href={link.href}
+                  style={{ clipPath: torn(120 + i, { top: 5, right: 7, bottom: 6, left: 7, n: 30 }) }}
+                >
+                  <span className="ticket__stub" aria-hidden="true">
+                    giriş
+                    <br />
+                    serbest
+                  </span>
+                  <span className="ticket__main">
+                    <b>{link.label}</b>
+                    <span>{link.handle}</span>
+                  </span>
+                  <span className="ticket__go" aria-hidden="true">
+                    aç
+                  </span>
+                </a>
+                <Tape className="ticket__tape live4" />
+              </Step>
+            ))}
+          </ul>
         </div>
 
-        <Step className="back__mascot" self="enter" on={3}>
-          <Mascot variant="wave" />
+        <Step className="back__mascot" on={3}>
+          <Mascot act="wave" flip wave waveLen={0.7} />
+        </Step>
+
+        <Step className="back__floor live6" on={6} aria-hidden="true" style={{ clipPath: torn(47, { top: 16, n: 60 }) }} />
+
+        <Step as="p" className="colophon" on={3}>
+          © {me.year} {me.name}. Elle kesildi, React ile yapıştırıldı, 24 karede oynatıldı.
         </Step>
       </div>
-
-      <div className="back__floor" aria-hidden="true" style={{ clipPath: torn(47, { top: 16, n: 60 }) }} />
-
-      <p className="colophon">
-        © {me.year} {me.name}. Elle kesildi, React ile yapıştırıldı, 24 karede oynatıldı. Gövde 3 karede bir, yelek 2 kare
-        geriden, klavye 4 karede bir poz değiştirir. Çizgi sadece bir şey hareket ederken titrer.
-      </p>
-    </footer>
+    </Shot>
   );
 }

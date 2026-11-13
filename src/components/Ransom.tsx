@@ -61,11 +61,12 @@ export function Ransom({ text, seed = 1, as = 'span', className = '', scatter, i
           '--dy': `${(-(85 + r() * 60)).toFixed(0)}vh`,
           '--dr': `${((r() - 0.5) * 260).toFixed(0)}deg`,
           '--i': i,
+          '--ph': `${(-r() * 0.5).toFixed(2)}s`,
         };
         const inner: Vars = { fontFamily: FACES[face].f, '--s': FACES[face].s, clipPath: clip };
         const on = CADENCE[Math.floor(r() * CADENCE.length)];
         const offset = Math.floor(r() * on);
-        const cls = `rl${intro ? ' rl--intro' : ''}${drop ? ' rl--drop' : ''}`;
+        const cls = `rl live${on === 2 ? 3 : on}${intro ? ' rl--intro' : ''}${drop ? ' rl--drop' : ''}`;
         const body = (
           <span className={`rl__in rl--${SKINS[skin]}`} style={inner}>
             {ch}
@@ -73,7 +74,7 @@ export function Ransom({ text, seed = 1, as = 'span', className = '', scatter, i
         );
         i++;
         return scatter || drop ? (
-          <Step as="span" key={ci} className={cls} style={outer} on={on} offset={offset} self={drop ? 'enter' : undefined}>
+          <Step as="span" key={ci} className={cls} style={outer} on={on} offset={offset}>
             {body}
           </Step>
         ) : (

@@ -30,7 +30,8 @@ import '@fontsource/courier-prime/latin-ext-400.css';
 import '@fontsource/courier-prime/latin-700.css';
 import '@fontsource/courier-prime/latin-ext-700.css';
 
-import './styles.css';
+import './film.css';
+import './scenes.css';
 import { App } from './App';
 
 createRoot(document.getElementById('root')!).render(

@@ -1,29 +1,34 @@
-import { Band, Grain, SvgDefs } from './components/Bits';
-import { me } from './content';
-import { Nav } from './components/Nav';
+import { Grain, SvgDefs } from './components/Bits';
+import { useEffect } from 'react';
+import { FilmStrip, Gate, PasteLayer } from './components/Film';
+import { startBand } from './engine/band';
 import { About } from './sections/About';
 import { BackCover } from './sections/BackCover';
 import { Cover } from './sections/Cover';
 import { Lineup } from './sections/Lineup';
 import { Projects } from './sections/Projects';
 
-const BAND = me.manifesto.map((w) => w.replace('.', ''));
-
+/**
+ * Site bir film: beş çekim, aralarında kesme. Altta film şeridi (menü),
+ * üstte fotokopi greni ve klavyeden basılan harflerin yapıştığı katman.
+ */
 export function App() {
+  useEffect(() => startBand(), []);
+
   return (
     <>
       <SvgDefs />
-      <Nav />
-      <main>
+      <main className="film">
         <Cover />
         <About />
-        <Band words={BAND} />
         <Lineup />
         <Projects />
+        <BackCover />
       </main>
-      <Band words={BAND} />
-      <BackCover />
+      <PasteLayer />
       <Grain />
+      <FilmStrip />
+      <Gate />
     </>
   );
 }

@@ -123,7 +123,7 @@ export function Burst({ className = '', points = 14 }: { className?: string; poi
 export function Band({ words }: { words: string[] }) {
   const line = Array.from({ length: 10 }, () => words.join(' / ')).join(' / ');
   return (
-    <div className="band" data-scene="through" aria-hidden="true">
+    <div className="band" aria-hidden="true">
       <Step className="band__strip band__strip--a" on={2}>
         <span>{line}</span>
       </Step>
