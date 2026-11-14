@@ -7,7 +7,7 @@ export const me = {
   name: 'Alper Koşay',
   role: 'Fullstack web geliştirici',
   lede: 'React, TypeScript, Postgres. Bir de orkestra halinde çalışan Claude’lar.',
-  manifesto: ['Kes.', 'Yapıştır.', 'Deploy et.'],
+  manifesto: ['Biraz', 'farklı', 'bir kafa.'],
   year: 2026,
 };
 

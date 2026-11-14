@@ -1,0 +1,329 @@
+{
+  "not": "pivot: SVG birimi (viewBox -50 0 520 620). pivotPng: 1040x1240 PNG üzerinde piksel. kare.her: sitede kaç karede bir poz değiştirdiği (24 kare/sn), kare.gecikme: kaç kare geç yakaladığı. ebeveyni kafa olanlar kafayla birlikte hareket eder.",
+  "katmanlar": [
+    {
+      "katman": "bacak-sol",
+      "dosya": "parcalar/01-bacak-sol.svg",
+      "sira": 1,
+      "ebeveyn": null,
+      "pivot": [
+        192,
+        384
+      ],
+      "pivotPng": [
+        484,
+        768
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "bacak-sag",
+      "dosya": "parcalar/02-bacak-sag.svg",
+      "sira": 2,
+      "ebeveyn": null,
+      "pivot": [
+        229,
+        384
+      ],
+      "pivotPng": [
+        558,
+        768
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 1
+      }
+    },
+    {
+      "katman": "kablo",
+      "dosya": "parcalar/03-kablo.svg",
+      "sira": 3,
+      "ebeveyn": null,
+      "pivot": [
+        280,
+        160
+      ],
+      "pivotPng": [
+        660,
+        320
+      ],
+      "kare": {
+        "her": 6,
+        "gecikme": 3
+      }
+    },
+    {
+      "katman": "govde",
+      "dosya": "parcalar/04-govde.svg",
+      "sira": 4,
+      "ebeveyn": null,
+      "pivot": [
+        210,
+        394
+      ],
+      "pivotPng": [
+        520,
+        788
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "yelek",
+      "dosya": "parcalar/05-yelek.svg",
+      "sira": 5,
+      "ebeveyn": null,
+      "pivot": [
+        210,
+        394
+      ],
+      "pivotPng": [
+        520,
+        788
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 2
+      }
+    },
+    {
+      "katman": "kol-sol",
+      "dosya": "parcalar/06-kol-sol.svg",
+      "sira": 6,
+      "ebeveyn": null,
+      "pivot": [
+        164,
+        250
+      ],
+      "pivotPng": [
+        428,
+        500
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "gitar",
+      "dosya": "parcalar/07-gitar.svg",
+      "sira": 7,
+      "ebeveyn": null,
+      "pivot": [
+        205,
+        345
+      ],
+      "pivotPng": [
+        510,
+        690
+      ],
+      "kare": {
+        "her": 4,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "kol-sag",
+      "dosya": "parcalar/08-kol-sag.svg",
+      "sira": 8,
+      "ebeveyn": null,
+      "pivot": [
+        258,
+        250
+      ],
+      "pivotPng": [
+        616,
+        500
+      ],
+      "kare": {
+        "her": 2,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "kol-sag-selam",
+      "dosya": "parcalar/08-kol-sag-selam.svg",
+      "sira": 8,
+      "ebeveyn": null,
+      "pivot": [
+        258,
+        250
+      ],
+      "pivotPng": [
+        616,
+        500
+      ],
+      "kare": {
+        "her": 2,
+        "gecikme": 0
+      }
+    },
+    {
+      "katman": "sac",
+      "dosya": "parcalar/09-sac.svg",
+      "sira": 9,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        98
+      ],
+      "pivotPng": [
+        520,
+        196
+      ],
+      "kare": {
+        "her": 4,
+        "gecikme": 1
+      }
+    },
+    {
+      "katman": "kafa",
+      "dosya": "parcalar/10-kafa.svg",
+      "sira": 10,
+      "ebeveyn": null,
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ],
+      "kare": {
+        "her": 3,
+        "gecikme": 1
+      }
+    },
+    {
+      "katman": "yuz-acik",
+      "dosya": "parcalar/11-yuz-acik.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-kirp",
+      "dosya": "parcalar/11-yuz-kirp.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-konus",
+      "dosya": "parcalar/11-yuz-konus.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-bagir",
+      "dosya": "parcalar/11-yuz-bagir.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-mutlu",
+      "dosya": "parcalar/11-yuz-mutlu.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-goz-kirp",
+      "dosya": "parcalar/11-yuz-goz-kirp.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-bayildi",
+      "dosya": "parcalar/11-yuz-bayildi.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "yuz-kod",
+      "dosya": "parcalar/11-yuz-kod.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
+      "katman": "gozluk",
+      "dosya": "parcalar/12-gozluk.svg",
+      "sira": 12,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    }
+  ]
+}
