@@ -10,7 +10,7 @@ import { mkdirSync, rmSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { RIG, SAC } from './sahne.mjs';
 
-const YUZLER = { open: 'acik', blink: 'kirp', talk: 'konus', shout: 'bagir', happy: 'mutlu', wink: 'goz-kirp', dead: 'bayildi', code: 'kod' };
+const YUZLER = { open: 'acik', blink: 'kirp', talk: 'konus', shout: 'bagir', happy: 'mutlu', wink: 'goz-kirp', dead: 'bayildi', grunge: 'grunge', code: 'kod' };
 
 /** Z sırası, arkadan öne. Aynı satırdakiler birbirinin alternatifi (aynı numarayı alır). */
 const KATMANLAR = [
@@ -116,7 +116,17 @@ function islem({ adlar, yuzler, sira }) {
   }
   fig.querySelector('#kol-sag-selam').setAttribute('display', 'none');
 
-  const kalip = ['p-dots', 'p-stripes', 'p-news'].map((id) => document.getElementById(id));
+  // Desenler ve gözlük gradyanları. Gradyan durakları CSS değişkeni kullanır: değerleri gömülür.
+  const kalip = ['p-dots', 'p-stripes', 'p-news', 'g-frame'].map((id) => {
+    const el = document.getElementById(id);
+    const kopya = el.cloneNode(true);
+    [...el.querySelectorAll('stop')].forEach((stop, i) => {
+      const hedef = kopya.querySelectorAll('stop')[i];
+      hedef.setAttribute('stop-color', getComputedStyle(stop).stopColor);
+      hedef.removeAttribute('style');
+    });
+    return kopya;
+  });
   const tam = document.createElementNS(NS, 'svg');
   tam.setAttribute('xmlns', NS);
   tam.setAttribute('viewBox', '-50 0 520 620');

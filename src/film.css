@@ -631,6 +631,7 @@ a {
 [data-face='happy'] .f-happy,
 [data-face='wink'] .f-wink,
 [data-face='dead'] .f-dead,
+[data-face='grunge'] .f-grunge,
 [data-face='code'] .f-code {
   display: inline;
 }
@@ -646,6 +647,11 @@ a {
   stroke-linecap: square;
 }
 
+/* Ekranda dolu şekil (dil) */
+.m-scr-f {
+  fill: var(--m-screen);
+}
+
 /* Gözlük */
 .m-glasses-h * {
   fill: none;
@@ -655,17 +661,22 @@ a {
   stroke-linejoin: round;
 }
 
+/* Çerçeve üstte kahverengi, alttan yukarı transparan mavi (Bits.tsx). Camlar şeffaf. */
 .m-frame * {
   fill: none;
-  stroke: var(--brown);
+  stroke: url(#g-frame);
   stroke-width: 6;
   stroke-linecap: round;
   stroke-linejoin: round;
 }
 
-.m-lens {
-  fill: var(--brown);
-  fill-opacity: 0.34;
+/* Menteşedeki metal pimler */
+.m-rivet {
+  fill: none;
+  stroke: #e9e4d8;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-dasharray: 0.01 3.2;
 }
 
 .m-glint {

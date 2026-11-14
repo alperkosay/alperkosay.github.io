@@ -5,7 +5,7 @@
 
 export const me = {
   name: 'Alper Koşay',
-  role: 'Fullstack web geliştirici',
+  role: 'Fullstack geliştirici',
   lede: 'React, TypeScript, Postgres. Bir de orkestra halinde çalışan Claude’lar.',
   manifesto: ['Biraz', 'farklı', 'bir kafa.'],
   year: 2026,
@@ -13,7 +13,7 @@ export const me = {
 
 /** Hakkımda paragrafları. *yıldız arası* fosforlu kalemle çizilir. */
 export const about: string[] = [
-  'Selam, ben Alper. *Fullstack web geliştiriciyim.* İşin çoğu React ve TypeScript ile önde, Node ve Postgres ile arkada geçiyor.',
+  'Selam, ben Alper. *Fullstack geliştiriciyim.* İşin çoğu React ve TypeScript ile önde, Node ve Postgres ile arkada geçiyor.',
   'İhtiyacım olan aracı bulamazsam oturur kendim yaparım. Bir dosya yöneticisi, ekranın tepesinde duran bir durum barı, tarayıcıda dönen bir FPS böyle çıktı.',
   'Artık kodu tek başıma yazmıyorum. İşi parçalara bölüp *Claude ajanlarına dağıtıyorum,* ben de şeflik yapıyorum.',
 ];

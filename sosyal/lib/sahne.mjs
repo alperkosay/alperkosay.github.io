@@ -48,7 +48,8 @@ export const POZ = {
   selam: { act: 'wave', t: 0.08, e: 0.3, L: 0, k: 0.3 },
 };
 
-export function sahneKur({ parts, renk, kok }) {
+/** `dil`: sayfanın dili. Büyük harfe çevirme buna göre yapılır (tr: i → İ). */
+export function sahneKur({ parts, renk, kok, dil = 'tr' }) {
   const tf = (p, r) => `translate(${p.x.toFixed(2)} ${p.y.toFixed(2)}) rotate(${p.rot.toFixed(2)} ${r.cx} ${r.cy})`;
 
   /** SSR figürünü (gölgesiz) verilen poza sokar, svg'nin içini döndürür. */
@@ -201,12 +202,13 @@ export function sahneKur({ parts, renk, kok }) {
 .m-o{stroke:#000;stroke-width:3.5;stroke-linejoin:round}.m-o-thin{stroke:#000;stroke-width:2.2}
 .m-halo *{fill:#fff!important;stroke:#fff!important;stroke-width:14px!important;stroke-linejoin:round!important}
 .m-scr>g{display:none}
-[data-face=open] .f-open,[data-face=blink] .f-blink,[data-face=talk] .f-talk,[data-face=shout] .f-shout,[data-face=happy] .f-happy,[data-face=wink] .f-wink,[data-face=dead] .f-dead,[data-face=code] .f-code{display:inline}
+[data-face=open] .f-open,[data-face=blink] .f-blink,[data-face=talk] .f-talk,[data-face=shout] .f-shout,[data-face=happy] .f-happy,[data-face=wink] .f-wink,[data-face=dead] .f-dead,[data-face=grunge] .f-grunge,[data-face=code] .f-code{display:inline}
 .m-scr rect{fill:var(--m-screen)}
 .m-scr-l{fill:none;stroke:var(--m-screen);stroke-width:6;stroke-linecap:square}
+.m-scr-f{fill:var(--m-screen)}
 .m-glasses-h *{fill:none;stroke:#fff;stroke-width:10.5;stroke-linecap:round;stroke-linejoin:round}
-.m-frame *{fill:none;stroke:var(--brown);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
-.m-lens{fill:var(--brown);fill-opacity:.34}
+.m-frame *{fill:none;stroke:url(#g-frame);stroke-width:6;stroke-linecap:round;stroke-linejoin:round}
+.m-rivet{fill:none;stroke:#e9e4d8;stroke-width:1.8;stroke-linecap:round;stroke-dasharray:.01 3.2}
 .m-glint{fill:none;stroke:#fff;stroke-width:2.6;stroke-linecap:round;opacity:.85}
 .m-line{fill:none;stroke:#000;stroke-width:2.2}.m-string{fill:none;stroke:#000;stroke-width:1.3}
 .m-chain{fill:none;stroke:var(--paper);stroke-width:3.5;stroke-dasharray:5 4}
@@ -261,7 +263,7 @@ body{position:relative;color:#fff;font-family:var(--f-type)}
    */
   function sayfa(w, h, { nokta = 11, vinyet = '50% 50%', zemin = '', ic }) {
     const [vx, vy] = vinyet.split(' ');
-    return `<!doctype html><html lang="tr"><head><meta charset="utf-8">${FONTLAR}<style>${CSS}</style></head>
+    return `<!doctype html><html lang="${dil}"><head><meta charset="utf-8">${FONTLAR}<style>${CSS}</style></head>
 <body style="--w:${w}px;--h:${h}px">${TANIMLAR}
 <div class="dots" style="--dot:${nokta}px"></div><div class="vig" style="--vx:${vx};--vy:${vy}"></div>
 ${zemin}${ic}${GREN}</body></html>`;

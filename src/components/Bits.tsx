@@ -33,6 +33,14 @@ export function SvgDefs() {
           <feComposite in2="SourceAlpha" operator="in" />
         </filter>
 
+        {/* Gözlük çerçevesi: üstte kahverengi, alttan yukarı transparan mavi. Koordinatlar
+            maskotun kendi biriminde (cam y 117-163). Camlar şeffaf kalır. */}
+        <linearGradient id="g-frame" gradientUnits="userSpaceOnUse" x1="0" y1="114" x2="0" y2="166">
+          <stop offset="0.58" style={{ stopColor: 'var(--brown)' }} />
+          <stop offset="0.86" stopColor="#3f8cff" stopOpacity="0.7" />
+          <stop offset="1" stopColor="#1d6bff" stopOpacity="0.45" />
+        </linearGradient>
+
         <pattern id="p-dots" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(28)">
           <circle cx="3.5" cy="3.5" r="1.7" />
         </pattern>

@@ -16,6 +16,7 @@ Bilgisayarda Chrome ya da Edge olması yeter. Başka bir yerdeyse yolunu `TARAYI
 |---|---|
 | Renkler (ceket, saç, ekran, zemin, dalga) | `uret.mjs` → `AYAR.renk` |
 | İsim, unvan, slogan | `src/content.ts` → `me` |
+| İngilizce unvan ve slogan | `uret.mjs` → `INGILIZCE` |
 | Yerleşim, yeni format, yüz ifadesi | `formatlar.mjs` |
 
 ## gorseller/
@@ -23,11 +24,17 @@ Bilgisayarda Chrome ya da Edge olması yeter. Başka bir yerdeyse yolunu `TARAYI
 | Dosya | Nerede |
 |---|---|
 | `profil-kafa-1080.png` | Profil resmi (her platform), daire kırpmaya uygun |
+| `profil-kafa-bagir/-bayildi/-goz-kirp/-grunge-1080.png` | Aynı kafa, başka duygular |
 | `profil-selam-1080.png` | Profil resmi alternatifi, el sallıyor |
+| `profil-kod-1080.png` | Profil resmi alternatifi, kırmızı zemin, ekranda kod |
+| `profil-sahne-1080.png` | Profil resmi alternatifi, boydan, gitar çalıyor |
+| `profil-yakin-1080.png` | Profil resmi alternatifi, yakın plan, göz kırpıyor |
 | `linkedin-kapak-1584x396.png` | LinkedIn kapak. Sol alt profil fotoğrafına bırakıldı |
 | `x-kapak-1500x500.png` | X kapak. Sol alt avatara bırakıldı |
 | `instagram-gonderi-1080x1350.png` | Instagram gönderi (4:5) |
 | `instagram-hikaye-1080x1920.png` | Instagram hikaye. Üst ve alt 250px'te önemli bir şey yok |
+
+Üzerinde yazı olanların (kapaklar, gönderi, hikaye) İngilizcesi `gorseller/en/` içinde.
 
 ## karakter/ (motion için)
 
@@ -48,7 +55,7 @@ SVG'lerde CSS yok, renkler öznitelik olarak gömülü. Illustrator, Figma ve ta
                   08 kol-sag-selam (kol-sag'ın alternatifi)
 ```
 
-Yüzler: `acik`, `kirp`, `konus`, `bagir`, `mutlu`, `goz-kirp`, `bayildi`, `kod`. Konuşma için `acik` ile `konus` arasında 3 karede bir geçiş yap. Göz kırpma için 3 kare `kirp` göster.
+Yüzler: `acik`, `kirp`, `konus`, `bagir`, `mutlu`, `goz-kirp`, `bayildi`, `grunge` (çarpı göz, gülüyor, dil dışarıda), `kod`. Konuşma için `acik` ile `konus` arasında 3 karede bir geçiş yap. Göz kırpma için 3 kare `kirp` göster.
 
 ### Sitedeki hareketin hissi
 

@@ -21,7 +21,7 @@ import { prompts } from '../content';
  * altı ajanın rengidir.
  */
 
-export type Face = 'open' | 'blink' | 'shout' | 'happy' | 'wink' | 'dead' | 'code' | 'talk';
+export type Face = 'open' | 'blink' | 'shout' | 'happy' | 'wink' | 'dead' | 'grunge' | 'code' | 'talk';
 export type Act = 'play' | 'walk' | 'wave';
 type Part = 'legL' | 'legR' | 'cable' | 'torso' | 'vest' | 'armL' | 'keytar' | 'armR' | 'head' | 'hawk';
 
@@ -190,6 +190,18 @@ const FACES: Record<Face, ReactNode> = {
       <path className="m-scr-l" d="M192 176 l9 -6 9 6 9 -6 9 6" />
     </>
   ),
+  // Gözler çarpı ama gülüyor; dil gülümsemenin sağ ucundan yana sarkıyor.
+  grunge: (
+    <>
+      <path className="m-scr-l" d="M176 128 l20 24 M196 128 l-20 24" />
+      <path className="m-scr-l" d="M224 128 l20 24 M244 128 l-20 24" />
+      <g transform="rotate(-26 226 177)">
+        <path className="m-scr-f" d="M217 176 h18 v10 q0 10 -9 10 q-9 0 -9 -10 z" stroke="#000" strokeWidth="2.2" strokeLinejoin="round" />
+        <path d="M226 178 v9" fill="none" stroke="#000" strokeWidth="2.2" strokeLinecap="round" />
+      </g>
+      <path className="m-scr-l" d="M182 172 q25 16 50 0" />
+    </>
+  ),
   code: (
     <>
       <g className="m-code-a">
@@ -224,23 +236,30 @@ export function FaceSet({ faces = ALL_FACES }: { faces?: Face[] }) {
   );
 }
 
-/** Kahverengi çerçeveli gözlük. Camlar hafif renkli, gözler arkasından görünür. */
+/** Köşeleri kırılmış geometrik cam: üstü düz ve geniş, alt köşeler daha çok kırılır. */
+const LENS_L = '171,117 202,117 208,123 208,148 199,163 174,163 165,152 165,124';
+const LENS_R = '249,117 218,117 212,123 212,148 221,163 246,163 255,152 255,124';
+
+/**
+ * Alper'in gerçek gözlüğü: geometrik sekizgen camlar, menteşede iki pim.
+ * Çerçeve üstte kahverengi, alttan yukarı transparan maviye döner (#g-frame).
+ * Camlar şeffaf, sadece bir parlama çizgisi; gözler arkasından görünür.
+ */
 export function Glasses() {
   const frame = (
     <>
-      <rect x="165" y="117" width="43" height="46" rx="11" />
-      <rect x="212" y="117" width="43" height="46" rx="11" />
-      <path d="M208 134 q2 -6 4 0" />
-      <path d="M165 132 L136 125 M255 132 L284 125" />
+      <polygon points={LENS_L} />
+      <polygon points={LENS_R} />
+      <path d="M208 127 q2 -5 4 0" />
+      <path d="M165 125 L136 120 M255 125 L284 120" />
     </>
   );
   return (
     <g className="m-glasses">
       <g className="m-glasses-h">{frame}</g>
-      <rect className="m-lens" x="165" y="117" width="43" height="46" rx="11" />
-      <rect className="m-lens" x="212" y="117" width="43" height="46" rx="11" />
       <g className="m-frame">{frame}</g>
-      <path className="m-glint" d="M173 128 l9 -5 M220 128 l9 -5" />
+      <path className="m-glint" d="M174 129 l9 -5 M221 129 l9 -5" />
+      <path className="m-rivet" d="M167 121.5 v3.2 M253 121.5 v3.2" />
     </g>
   );
 }

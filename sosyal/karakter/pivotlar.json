@@ -298,6 +298,20 @@
       ]
     },
     {
+      "katman": "yuz-grunge",
+      "dosya": "parcalar/11-yuz-grunge.svg",
+      "sira": 11,
+      "ebeveyn": "kafa",
+      "pivot": [
+        210,
+        208
+      ],
+      "pivotPng": [
+        520,
+        416
+      ]
+    },
+    {
       "katman": "yuz-kod",
       "dosya": "parcalar/11-yuz-kod.svg",
       "sira": 11,

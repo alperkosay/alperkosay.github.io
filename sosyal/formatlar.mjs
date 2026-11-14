@@ -3,7 +3,9 @@
  * burayı düzenle, sonra `npm run sosyal` çalıştır.
  *
  * Koordinatlar piksel. Maskotun boyu `height` ile verilir, genişliği oranından gelir.
- * İsim, unvan ve slogan sitedeki src/content.ts'ten okunur.
+ * İsim, unvan ve slogan sitedeki src/content.ts'ten okunur; İngilizcesi uret.mjs'te.
+ * Üzerinde yazı olan formatlar `metin: true` ile işaretlenir, sadece onların
+ * İngilizcesi basılır (gorseller/en/).
  *
  * Yardımcılar (lib/sahne.mjs):
  *   maskot({ poz, yuz, dalga, kablo, iz, stil })  yuz: open blink talk shout happy wink dead code
@@ -21,19 +23,25 @@ export function formatlar(k, me) {
   const [s1, s2, s3] = me.manifesto;
   const slogan = me.manifesto.join(' ');
 
+  /** Profil resmi: sadece kafa, arkada patlama. Daire içine kırpılınca da güvenli. */
+  const kafaProfil = (ek, yuz, aci) => ({
+    ad: `profil-kafa${ek}-1080`,
+    w: 1080,
+    h: 1080,
+    html: sayfa(1080, 1080, {
+      nokta: 14,
+      ic: `${patlama(16, `left:90px;top:90px;width:900px;height:900px;rotate:${aci * 0.5}deg`)}
+        <div style="position:absolute;left:180px;top:180px;width:720px;height:720px;border-radius:50%;background:#000"></div>
+        ${kafa({ yuz, stil: `left:205px;top:150px;width:670px;height:826px;rotate:${aci}deg;filter:drop-shadow(-22px 14px 0 #fff) drop-shadow(-14px 8px 0 var(--red))` })}`,
+    }),
+  });
+
   return [
-    {
-      // Profil resmi: sadece kafa. Daire içine kırpılınca da güvenli.
-      ad: 'profil-kafa-1080',
-      w: 1080,
-      h: 1080,
-      html: sayfa(1080, 1080, {
-        nokta: 14,
-        ic: `${patlama(16, 'left:90px;top:90px;width:900px;height:900px')}
-          <div style="position:absolute;left:180px;top:180px;width:720px;height:720px;border-radius:50%;background:#000"></div>
-          ${kafa({ yuz: 'happy', stil: 'left:205px;top:150px;width:670px;height:826px;filter:drop-shadow(-22px 14px 0 #fff) drop-shadow(-14px 8px 0 var(--red))' })}`,
-      }),
-    },
+    kafaProfil('', 'happy', 0),
+    kafaProfil('-bagir', 'shout', -8),
+    kafaProfil('-bayildi', 'dead', 14),
+    kafaProfil('-goz-kirp', 'wink', 6),
+    kafaProfil('-grunge', 'grunge', -5),
     {
       // Profil resmi alternatifi: el sallayan büst.
       ad: 'profil-selam-1080',
@@ -47,8 +55,45 @@ export function formatlar(k, me) {
       }),
     },
     {
+      // Profil: kırmızı zemin, ekranda kod akıyor.
+      ad: 'profil-kod-1080',
+      w: 1080,
+      h: 1080,
+      html: sayfa(1080, 1080, {
+        zemin: `<div style="position:absolute;inset:0;background:var(--red)"></div>
+          <div class="dots" style="--dot:16px;opacity:.55"></div>`,
+        ic: `${patlama(18, 'left:110px;top:110px;width:860px;height:860px;--bc:#000;rotate:8deg')}
+          ${kafa({ yuz: 'code', stil: 'left:220px;top:150px;width:640px;height:790px;rotate:-7deg;filter:drop-shadow(-20px 14px 0 #fff) drop-shadow(-12px 8px 0 #000)' })}`,
+      }),
+    },
+    {
+      // Profil: boydan, gitarı çalıp bağırıyor. Ayaklar daire içinde kalır.
+      ad: 'profil-sahne-1080',
+      w: 1080,
+      h: 1080,
+      html: sayfa(1080, 1080, {
+        nokta: 14,
+        zemin: `<div style="position:absolute;left:150px;top:150px;width:780px;height:780px;border-radius:50%;background:var(--red)"></div>
+          <div class="tape" style="left:-60px;top:860px;width:1200px;--th:44px;rotate:-6deg"></div>`,
+        ic: `${patlama(14, 'left:700px;top:120px;width:220px;height:220px;--bc:#fff')}
+          ${maskot({ yuz: 'shout', kablo: false, dalga: { boy: 0.3, faz: 1.6, aci: 14 }, stil: 'left:175px;top:100px;height:880px' })}`,
+      }),
+    },
+    {
+      // Profil: yakın plan, göz kırpıyor; gözlük kadrajı doldurur.
+      ad: 'profil-yakin-1080',
+      w: 1080,
+      h: 1080,
+      html: sayfa(1080, 1080, {
+        nokta: 14,
+        zemin: `<div class="slab" style="left:-100px;top:620px;width:1300px;height:300px;rotate:-12deg"></div>`,
+        ic: kafa({ yuz: 'wink', stil: 'left:-60px;top:-190px;width:1200px;height:1480px;rotate:5deg;filter:drop-shadow(-26px 16px 0 var(--red))' }),
+      }),
+    },
+    {
       // LinkedIn kapak. Profil fotoğrafı sol altı kapatır: yazı 470px'ten başlar.
       ad: 'linkedin-kapak-1584x396',
+      metin: true,
       w: 1584,
       h: 396,
       html: sayfa(1584, 396, {
@@ -66,6 +111,7 @@ export function formatlar(k, me) {
     {
       // X (Twitter) kapak. Avatar sol altta: yazı 330px'ten başlar.
       ad: 'x-kapak-1500x500',
+      metin: true,
       w: 1500,
       h: 500,
       html: sayfa(1500, 500, {
@@ -83,6 +129,7 @@ export function formatlar(k, me) {
     {
       // Instagram gönderi (4:5). Profil ızgarasında ortadaki kare görünür.
       ad: 'instagram-gonderi-1080x1350',
+      metin: true,
       w: 1080,
       h: 1350,
       html: sayfa(1080, 1350, {
@@ -99,6 +146,7 @@ export function formatlar(k, me) {
     {
       // Instagram hikaye. Üst ve alt ~250px'te arayüz var, önemli şey ortada.
       ad: 'instagram-hikaye-1080x1920',
+      metin: true,
       w: 1080,
       h: 1920,
       html: sayfa(1080, 1920, {

@@ -2,7 +2,7 @@
  * Sosyal medya görsellerini ve karakter kitini üretir.
  *
  *   npm run sosyal                    hepsi
- *   npm run sosyal -- gorsel          sadece görseller  (sosyal/gorseller)
+ *   npm run sosyal -- gorsel          sadece görseller  (sosyal/gorseller, İngilizceleri gorseller/en)
  *   npm run sosyal -- karakter        sadece karakter   (sosyal/karakter)
  *
  * Maskot sitedeki React bileşeninden çizilir, isim/unvan/slogan src/content.ts'ten
@@ -19,7 +19,13 @@ import { karakterKiti } from './lib/karakter.mjs';
 import { sahneKur } from './lib/sahne.mjs';
 import { tarayiciAc } from './lib/tarayici.mjs';
 
-/** Renkler. Metinler src/content.ts'ten gelir. */
+/** İngilizce görsellerin metni. Türkçesi src/content.ts'ten gelir. */
+const INGILIZCE = {
+  role: 'Fullstack Developer',
+  manifesto: ['Wired', 'a bit', 'differently.'],
+};
+
+/** Renkler. */
 const AYAR = {
   renk: {
     kirmizi: '#ff1a1a', // vurgu: şeritler, etiketler, iz
@@ -54,7 +60,7 @@ try {
     defs: renderToStaticMarkup(h(B.SvgDefs)),
     play: renderToStaticMarkup(h(M.Mascot, { act: 'play' })),
     wave: renderToStaticMarkup(h(M.Mascot, { act: 'wave' })),
-    head: renderToStaticMarkup(h(M.MascotHead, { face: 'open', faces: ['open', 'happy', 'shout', 'wink', 'code'] })),
+    head: renderToStaticMarkup(h(M.MascotHead, { face: 'open', faces: ['open', 'blink', 'talk', 'shout', 'happy', 'wink', 'dead', 'grunge', 'code'] })),
   };
 } finally {
   await vite.close();
@@ -73,6 +79,17 @@ try {
       await br.ac(html, f.w, f.h);
       await br.foto(join(dir, `${f.ad}.png`));
       console.log(`görsel   ${f.ad}.png`);
+    }
+    // Üzerinde yazı olanların İngilizcesi.
+    const en = join(dir, 'en');
+    mkdirSync(en, { recursive: true });
+    const kEn = sahneKur({ parts, renk: AYAR.renk, kok, dil: 'en' });
+    for (const f of formatlar(kEn, { ...me, ...INGILIZCE }).filter((f) => f.metin)) {
+      const html = join(gecici, `en-${f.ad}.html`);
+      writeFileSync(html, f.html);
+      await br.ac(html, f.w, f.h);
+      await br.foto(join(en, `${f.ad}.png`));
+      console.log(`görsel   en/${f.ad}.png`);
     }
   }
   if (yap('karakter')) {
