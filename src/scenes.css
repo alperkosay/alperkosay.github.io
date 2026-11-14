@@ -14,10 +14,14 @@
   inset: 0;
   z-index: 200;
   display: grid;
-  place-content: center;
+  /* safe: kısa ekranda içerik üstten kesilmesin, kaydırılabilsin. */
+  place-content: safe center;
+  /* Sütun içerik kadar genişler ama ekranı aşmaz: dar ekranda yazılar kırılır. */
+  grid-template-columns: fit-content(100%);
   justify-items: center;
   gap: clamp(10px, 2.4vh, 26px);
   padding: var(--pad);
+  overflow-y: auto;
   text-align: center;
   color: #fff;
   background: #000 radial-gradient(circle, #1f1f1f 0 30%, transparent 33%) 0 0 / 9px 9px;
@@ -103,6 +107,35 @@
   margin: 0;
   font-size: 0.8em;
   color: #bdbdbd;
+}
+
+/* Işık uyarısı: ikaz bantlı bir etiket. Animasyonu yok, bilerek. */
+.gate__warn {
+  display: grid;
+  gap: 0.5em;
+  max-width: 34em;
+  padding: 0.8em 1em 0.9em;
+  border: 10px solid transparent;
+  border-image: repeating-linear-gradient(-45deg, var(--yellow) 0 12px, #000 12px 24px) 10;
+  font: 700 clamp(12px, 1.15vw, 15px) / 1.4 var(--f-type);
+  text-align: left;
+  color: #000;
+  background: var(--paper);
+  rotate: 1.2deg;
+}
+
+.gate__warn-tag {
+  justify-self: start;
+  padding: 0.15em 0.45em 0.1em;
+  font: 1em var(--f-label);
+  text-transform: uppercase;
+  color: var(--yellow);
+  background: #000;
+  rotate: -2deg;
+}
+
+.gate__warn b {
+  background: var(--yellow);
 }
 
 .gate :focus-visible {

@@ -82,7 +82,7 @@ export function Gate() {
   if (!open) return null;
 
   return (
-    <div className="gate" role="dialog" aria-modal="true" aria-label="Filmi başlat">
+    <div className="gate" role="dialog" aria-modal="true" aria-label="Filmi başlat" aria-describedby="gate-warn">
       <div className="gate__leader" aria-hidden="true">
         <span>3</span>
       </div>
@@ -96,6 +96,15 @@ export function Gate() {
         Kendim kaydıracağım
       </button>
       <p className="gate__note">Ses açık başlar. Alttaki şeritten kapatabilirsin.</p>
+      {/* Uyarı bilerek kıpırdamaz: titreşime karşı uyaran şey titremesin. */}
+      <aside id="gate-warn" className="gate__warn">
+        <strong className="gate__warn-tag">Dikkat: ışığa duyarlılık</strong>
+        <span>
+          Bu film hızlı kesmeler, yanıp sönen renkler ve titreyen görüntüler içerir. Işığa duyarlı epilepsin varsa
+          izlemeden önce dikkat et. Cihazında <b>hareketi azalt</b> ayarı açıksa site kıpırtısız, düz bir sayfa olarak
+          açılır.
+        </span>
+      </aside>
     </div>
   );
 }
