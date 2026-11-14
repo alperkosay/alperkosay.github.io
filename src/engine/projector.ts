@@ -14,6 +14,8 @@
  * Katman sadece `--p` (0..1) alır. Koreografinin kendisi CSS'te yazılır.
  */
 
+import { READ } from '../timeline';
+
 export type SelfMode = 'enter' | 'through';
 type Mode = 'pin' | 'through' | 'enter' | 'film';
 type El = HTMLElement | SVGElement;
@@ -67,6 +69,8 @@ export interface ProjectorState {
   rolling: boolean;
   /** Grup çalıyor. Müzik scroll'dan bağımsızdır. */
   jam: boolean;
+  /** Ekranda okunacak bir yazı var; otomatik oynatma yavaşlar. */
+  reading: boolean;
 }
 
 /** 'hit': kullanıcı vurdu (sert). 'riff': maskot kendi çalıyor (yumuşak). */
@@ -78,6 +82,8 @@ export const FPS = 24;
 const FRAME_MS = 1000 / FPS;
 /** Bir kesme, ekran yüksekliğinin bu kadarı boyunca sürer. */
 export const CUT = 0.55;
+/** Kapağın açılış animasyonu (isim, maskot, dalga) bu kadar sürer; otomatik oynatma onu bekler. */
+const INTRO_MS = 4000;
 
 function docTop(el: HTMLElement): number {
   let y = 0;
@@ -107,6 +113,7 @@ class Projector {
     auto: false,
     rolling: false,
     jam: false,
+    reading: false,
   };
 
   private scenes = new Map<HTMLElement, Src>();
@@ -122,6 +129,9 @@ class Projector {
   private dirty = true;
   private fresh = true;
   private lastMove = -1e9;
+  private holdUntil = 0;
+  /** Otomatik oynatmanın o anki hız katı; okuma aralığına yumuşak girer. */
+  private slow = 1;
   private started = false;
   private boilSeed = 1;
   private turbs: Element[] | null = null;
@@ -235,6 +245,8 @@ class Projector {
     this.state.rolling = true;
     document.documentElement.classList.add('is-rolling');
     this.lastMove = performance.now();
+    // Kapağın açılışı bitmeden kaydırma başlarsa harfler yapışmadan dağılır.
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && window.scrollY < 4) this.holdUntil = this.lastMove + INTRO_MS;
     this.start();
   }
 
@@ -265,6 +277,7 @@ class Projector {
       return;
     }
     const f = this.films[i];
+    this.holdUntil = 0;
     const lead = this.state.reduced || i === 0 ? 0 : this.state.vh * CUT + 2;
     window.scrollTo(0, f.top + lead);
     this.autoY = f.top + lead;
@@ -363,10 +376,15 @@ class Projector {
     // Otomatik oynatma: çekimin kendi hızında aşağı kaydırır.
     const dt = Math.min(100, now - this.lastNow);
     this.lastNow = now;
-    if (st.auto) {
+    if (st.auto && now >= this.holdUntil) {
       const pace = parseFloat(this.films[st.shot]?.el.dataset.pace ?? '') || 0.4;
+      // Yazı okunurken yavaşla: okuma aralığındaysak hedef kat düşer.
+      const read = READ[st.shot];
+      const inSpan = read?.spans.some(([a, b]) => st.shotP >= a && st.shotP <= b);
+      const want = read && (inSpan || st.reading) ? read.slow : 1;
+      this.slow += (want - this.slow) * Math.min(1, dt / 250);
       const max = document.documentElement.scrollHeight - st.vh;
-      this.autoY = Math.min(max, this.autoY + (st.vh * pace * dt) / 1000);
+      this.autoY = Math.min(max, this.autoY + (st.vh * pace * this.slow * dt) / 1000);
       window.scrollTo(0, this.autoY);
       if (this.autoY >= max) this.setAuto(false);
     }

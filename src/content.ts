@@ -170,10 +170,11 @@ export interface LinkItem {
   href: string;
 }
 
-/** Arka kapaktaki koparmalık fişler. E-posta ya da LinkedIn eklemek için buraya bir satır yaz. */
+/** Arka kapaktaki koparmalık fişler. Yeni bir link eklemek için buraya bir satır yaz. */
 export const links: LinkItem[] = [
   { label: 'GitHub', handle: 'alperkosay', href: 'https://github.com/alperkosay' },
-  { label: 'npm', handle: '@thefinder/react', href: 'https://www.npmjs.com/package/@thefinder/react' },
+  { label: 'LinkedIn', handle: 'alper-koşay', href: 'https://www.linkedin.com/in/alper-ko%C5%9Fay' },
+  { label: 'npm', handle: '~alperkosay', href: 'https://www.npmjs.com/~alperkosay' },
 ];
 
 export const sections = [

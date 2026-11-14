@@ -37,6 +37,8 @@ export function BackCover() {
                 <a
                   className={`ticket ticket--${i % 2} live${i % 2 ? 4 : 6}`}
                   href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   style={{ clipPath: torn(120 + i, { top: 5, right: 7, bottom: 6, left: 7, n: 30 }) }}
                 >
                   <span className="ticket__stub" aria-hidden="true">
@@ -45,7 +47,7 @@ export function BackCover() {
                     serbest
                   </span>
                   <span className="ticket__main">
-                    <b>{link.label}</b>
+                    <b lang="en">{link.label}</b>
                     <span>{link.handle}</span>
                   </span>
                   <span className="ticket__go" aria-hidden="true">

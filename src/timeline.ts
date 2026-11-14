@@ -59,5 +59,18 @@ export const CUES: Cue[][] = [
   [{ at: 0.4, sfx: 'slap' }],
 ];
 
+/**
+ * Otomatik oynatmada yazının okunduğu aralıklar, çekim sırasına göre. Film bu
+ * aralıklarda `slow` katına yavaşlar. İşler'in aralığı sabit değil: ortaya
+ * gelen afiş okunurken projektöre `reading` bayrağıyla haber verilir.
+ */
+export const READ: { slow: number; spans: readonly (readonly [number, number])[] }[] = [
+  { slow: 1, spans: [] },
+  { slow: 0.45, spans: BEN.panels.map((p) => [p.from, p.to] as const) },
+  { slow: 0.3, spans: [KADRO.cap1, KADRO.cap2, KADRO.cap3] },
+  { slow: 0.3, spans: [] },
+  { slow: 1, spans: [] },
+];
+
 /** Otomatik oynatmanın hızı, saniyede ekran yüksekliği. Okunacak yazı olan çekim yavaş akar. */
 export const PACE = { kapak: 0.42, ben: 0.19, kadro: 0.36, isler: 0.42, cikis: 0.3 } as const;

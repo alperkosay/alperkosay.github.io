@@ -34,6 +34,12 @@ import './film.css';
 import './scenes.css';
 import { App } from './App';
 
+// Film her yenilemede baştan oynar: tarayıcı kaldığı yeri hatırlamasın.
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+window.scrollTo(0, 0);
+window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <App />

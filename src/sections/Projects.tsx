@@ -64,7 +64,11 @@ export function Projects() {
     const flyers = [...row.querySelectorAll<HTMLElement>('.flyer')];
     let live: HTMLElement | null = null;
     const offTick = projector.onTick((f, st) => {
-      if (st.reduced || f % 3 || !section.hasAttribute('data-on')) return;
+      if (st.reduced || f % 3) return;
+      if (!section.hasAttribute('data-on')) {
+        st.reading = false;
+        return;
+      }
       const aim = st.vw * (st.vw < 820 ? 0.5 : 0.56);
       let best: HTMLElement | null = null;
       let dist = Infinity;
@@ -77,6 +81,8 @@ export function Projects() {
         }
       }
       if (best && dist > st.vw * 0.42) best = null;
+      // Afiş ortaya yakınken okunuyor: otomatik oynatma yavaşlasın.
+      st.reading = best !== null && dist < st.vw * 0.14;
       if (best !== live) {
         live?.classList.remove('is-live');
         best?.classList.add('is-live');
@@ -142,11 +148,11 @@ export function Projects() {
                       ))}
                     </ul>
                     <div className="flyer__tabs">
-                      <a href={p.repo} aria-label={`${p.name}: kodu gör`}>
+                      <a href={p.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.name}: kodu gör`}>
                         Kodu gör
                       </a>
                       {p.live && (
-                        <a href={p.live} aria-label={`${p.name}: canlıda aç`}>
+                        <a href={p.live} target="_blank" rel="noopener noreferrer" aria-label={`${p.name}: canlıda aç`}>
                           Canlıda aç
                         </a>
                       )}
@@ -162,7 +168,7 @@ export function Projects() {
 
             <div className="wall__end">
               <p className="hand live4">gerisi GitHub’da</p>
-              <a className="dymo live3" href={links[0].href}>
+              <a className="dymo live3" href={links[0].href} target="_blank" rel="noopener noreferrer">
                 github.com/{links[0].handle}
               </a>
             </div>

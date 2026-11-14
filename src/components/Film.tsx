@@ -169,7 +169,8 @@ export function FilmStrip() {
 
 const FACES = ["'Anton'", "'Abril Fatface'", "'Alfa Slab One'", "'Bungee'", "'Archivo Black'", "'Shrikhand'", "'Bangers'", "'Special Elite'"];
 const SKINS = ['ink', 'paper', 'c1', 'c2', 'white', 'news'];
-const LIFE_MS = 6500;
+/** Çıkartma bu kadar kalır. film.css'teki `.scrap` soyulma gecikmesiyle birlikte değiştir. */
+const LIFE_MS = 1800;
 const MAX = 18;
 
 interface Scrap {

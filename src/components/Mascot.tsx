@@ -326,6 +326,8 @@ type Vars = CSSProperties & Record<`--${string}`, string | number>;
 /** Dalganın şeritleri. Sıra, orkestradaki ajanların sırasıyla aynı. */
 export const BLUES = ['#1d4dff', '#008cff', '#00b7eb', '#3fd0ff', '#8fe6ff', '#d7f6ff'];
 const WAVE_POINTS = 26;
+/** İz kaç karede bir örneklenir. 3 = saniyede 8 poz. */
+const TRAIL_EVERY = 3;
 
 export function Mascot({ act = 'play', className = '', assemble, flip, wave, waveLen = 1, drive }: MascotProps) {
   const root = useRef<HTMLDivElement>(null);
@@ -333,6 +335,9 @@ export function Mascot({ act = 'play', className = '', assemble, flip, wave, wav
   const waveId = `wave${useId().replace(/:/g, '')}`;
   const parts = useRef<Partial<Record<Part, SVGGElement>>>({});
   const look = useRef<SVGGElement | null>(null);
+  const figG = useRef<SVGGElement>(null);
+  const ghostR = useRef<SVGSVGElement>(null);
+  const ghostB = useRef<SVGSVGElement>(null);
   const driveRef = useRef(drive);
   driveRef.current = drive;
 
@@ -427,6 +432,31 @@ export function Mascot({ act = 'play', className = '', assemble, flip, wave, wav
       svg.classList.toggle('is-quiet', len < 0.5);
     };
 
+    // Kırmızı ve mavi iz: saniyede 8 kez figürün o anki pozu kopyalanır.
+    // Kırmızı bir örnek, mavi iki örnek geriden gelir; hem poz hem konum gecikir.
+    const slots = [ghostR.current, ghostB.current].map((g) => g?.querySelector('.mascot__slot') ?? null);
+    const trail: { x: number; y: number }[] = [];
+    let lastSample = -99;
+    const sampleTrail = (f: number) => {
+      const fig = figG.current;
+      const [red, blue] = slots;
+      if (!fig || !red || !blue || !ghostR.current || !ghostB.current) return;
+      // Ekrandan uzun süre çıkmışsa eski iz atılır, dönüşte figürden kopmasın.
+      if (f - lastSample > TRAIL_EVERY * 2) trail.length = 0;
+      lastSample = f;
+      const r = el.getBoundingClientRect();
+      trail.unshift({ x: r.left, y: r.top });
+      trail.length = Math.min(trail.length, 3);
+      blue.replaceChildren(...red.childNodes);
+      red.replaceChildren(fig.cloneNode(true));
+      const place = (ghost: SVGSVGElement, back: number) => {
+        const p = trail[Math.min(back, trail.length - 1)];
+        ghost.style.translate = `${(p.x - r.left).toFixed(1)}px ${(p.y - r.top).toFixed(1)}px`;
+      };
+      place(ghostR.current, 1);
+      place(ghostB.current, 2);
+    };
+
     PARTS.forEach(apply);
     el.dataset.face = idle;
 
@@ -487,6 +517,7 @@ export function Mascot({ act = 'play', className = '', assemble, flip, wave, wav
       }
 
       if (wave && f % 2 === 0) drawWave(st);
+      if (f % TRAIL_EVERY === 0) sampleTrail(f);
     });
 
     return () => {
@@ -515,8 +546,14 @@ export function Mascot({ act = 'play', className = '', assemble, flip, wave, wav
       role="img"
       aria-label="Monitör kafalı, gözlüklü, mohawklı, klavyeyi gitar gibi çalan punk maskot"
     >
+      <svg ref={ghostB} className="mascot__fig mascot__ghost mascot__ghost--b" viewBox="-50 0 520 620" aria-hidden="true">
+        <g filter="url(#ghost-b)" className="mascot__slot" />
+      </svg>
+      <svg ref={ghostR} className="mascot__fig mascot__ghost mascot__ghost--r" viewBox="-50 0 520 620" aria-hidden="true">
+        <g filter="url(#ghost-r)" className="mascot__slot" />
+      </svg>
       <svg className="mascot__fig" viewBox="-50 0 520 620" aria-hidden="true">
-        <g filter="url(#boil-m)">
+        <g ref={figG} filter="url(#boil-m)">
           {P(
             'legL',
             <>

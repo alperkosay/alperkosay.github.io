@@ -532,6 +532,41 @@ a {
   transform: scaleX(-1);
 }
 
+/* Arkadan gelen kırmızı ve mavi iz. Konumu `translate` ile kayar; `transform`
+   çevirme için boş kalır. */
+.mascot__ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Asıl figür izin önünde durur. */
+.mascot__fig:not(.mascot__ghost) {
+  position: relative;
+  z-index: 1;
+}
+
+.mascot__ghost--r {
+  opacity: 0.9;
+}
+
+.mascot__ghost--b {
+  opacity: 0.85;
+}
+
+/* Kopyalar donmuş birer poz: açılış animasyonunu yeniden oynatmasınlar. */
+.mascot__ghost * {
+  animation: none !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mascot__ghost {
+    display: none;
+  }
+}
+
 .mascot--wave .m-cable {
   display: none;
 }
@@ -1228,8 +1263,8 @@ a {
 }
 
 .back__h {
-  font-size: clamp(42px, min(8vw, 13svh), 124px);
-  margin-bottom: 0.55em;
+  font-size: clamp(42px, min(7vw, 10svh), 116px);
+  margin-bottom: 0.4em;
 }
 
 
@@ -1312,6 +1347,19 @@ a {
     opacity: 1;
     scale: 1;
     rotate: var(--r);
+  }
+}
+
+@keyframes wave-in {
+  0% {
+    opacity: 0;
+  }
+  1% {
+    opacity: 0.4;
+  }
+  50%,
+  100% {
+    opacity: 1;
   }
 }
 
@@ -1512,6 +1560,13 @@ a {
     animation-play-state: paused !important;
   }
 
+  /* Açılış animasyonu durmaz: kapaktan erken çıkılırsa yarıda donup dönüşte
+     yarım parçalar göstermesin. Liste sırası `animation: intro, idle`; yalnız
+     boşta salınım duraklar. */
+  .shot:not([data-on]):not([data-under]) :is(.rl--intro, .cover__role, .cover__lede, .cover__issue, .cover__cue, .cover__hint, .mascot--assemble .m-part, .mascot--assemble .wave, .mascot--assemble .mascot__ghost) {
+    animation-play-state: running, paused !important;
+  }
+
   .burst {
     animation: spin 0.6667s steps(8) infinite;
   }
@@ -1552,7 +1607,7 @@ a {
   }
 
   .scrap {
-    animation: slap 0.375s step-end both, wob-a 0.5s step-end 0.375s infinite, peel 0.25s step-end 6.2s forwards;
+    animation: slap 0.375s step-end both, wob-a 0.5s step-end 0.375s infinite, peel 0.25s step-end 1.55s forwards;
   }
 
   /* Yapıştırılan her şey: eşiği geçince pat diye belirir, birkaç pozda oturur. */
@@ -1656,6 +1711,12 @@ a {
     transform-box: fill-box;
     transform-origin: 50% 50%;
     animation: part-slap 0.375s step-end calc(1.9s + var(--k) * 0.125s) both;
+  }
+
+  /* Dalga en son, kablo yapıştıktan sonra gitarın ucundan fışkırır. */
+  .is-rolling .mascot--assemble .wave,
+  .is-rolling .mascot--assemble .mascot__ghost {
+    animation: wave-in 0.375s step-end 3.4s both;
   }
 
   .cover__name .rl {

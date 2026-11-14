@@ -23,6 +23,16 @@ export function SvgDefs() {
           <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" />
         </filter>
 
+        {/* Maskotun arkasından gelen iz: figürün düz renk silüeti. */}
+        <filter id="ghost-r" x="-10%" y="-10%" width="120%" height="120%">
+          <feFlood floodColor="#ff1f3d" />
+          <feComposite in2="SourceAlpha" operator="in" />
+        </filter>
+        <filter id="ghost-b" x="-10%" y="-10%" width="120%" height="120%">
+          <feFlood floodColor="#1d4dff" />
+          <feComposite in2="SourceAlpha" operator="in" />
+        </filter>
+
         <pattern id="p-dots" width="7" height="7" patternUnits="userSpaceOnUse" patternTransform="rotate(28)">
           <circle cx="3.5" cy="3.5" r="1.7" />
         </pattern>
